@@ -6,35 +6,51 @@ variables:
   DOCKER_DRIVER: overlay
 
 stages:
-  - test
-  - build
+  - server test
+  - client test
+  - build client
+  - build server
   - deploy
 
-test:
-  stage: test
+server test:
+  stage: server test
   image: node:14
   script:
-    - echo "Starting tests"
+    - echo "Starting server tests"
+    - pwd
     - npm install
     - CI=true npm test
     - echo "Test executed successfully!"
 
+client test:
+  stage: client test
+  image: node:14
+  script:
+    - echo "Starting client tests"
+    - pwd
+    - cd client
+    - npm install
+    - CI=true npm test
+    - echo "Test executed successfully!"
 
-build:
+build client:
   stage: build
   image: node:14
   script:
     - echo "Starting build"
+    - pwd
     - npm install
     - npm build
     - echo "Build successful!"
 
 
-docker-build:
+build server:
   only:
     - tags
     - staging
   stage: deploy
   script:
+    - pwd
+    - cd ..
     - docker build -t marmiss/frontend:${CI_COMMIT_TAG}
     - docker push marmiss/frontend:${CI_COMMIT_TAG}
