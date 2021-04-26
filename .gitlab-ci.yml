@@ -1,0 +1,40 @@
+image: docker:latest
+services:
+  - docker:dind
+
+variables:
+  DOCKER_DRIVER: overlay
+
+stages:
+  - test
+  - build
+  - deploy
+
+test:
+  stage: test
+  image: node:14
+  script:
+    - echo "Starting tests"
+    - npm install
+    - CI=true npm test
+    - echo "Test executed successfully!"
+
+
+build:
+  stage: build
+  image: node:14
+  script:
+    - echo "Starting build"
+    - npm install
+    - npm build
+    - echo "Build successful!"
+
+
+docker-build:
+  only:
+    - tags
+    - staging
+  stage: deploy
+  script:
+    - docker build -t marmiss/frontend:${CI_COMMIT_TAG}
+    - docker push marmiss/frontend:${CI_COMMIT_TAG}
