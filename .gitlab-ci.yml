@@ -34,7 +34,7 @@ client test:
     - echo "Test executed successfully!"
 
 build client:
-  stage: build
+  stage: build client
   image: node:14
   script:
     - echo "Starting build"
