@@ -1,12 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './Components/App/App';
 import reportWebVitals from './reportWebVitals';
-import Header from './Components/App-header/App-header';
+import Header from './components/App-header/App-header';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button } from 'bootstrap';
-import Modal from './Components/App-modal/App-modal';
 ReactDOM.render(
   <React.StrictMode>
     <Header/>
