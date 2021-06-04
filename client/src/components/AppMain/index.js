@@ -5,8 +5,9 @@ import {
     ToastContainer,
 } from 'react-toastify';
 
-const Dashboards = lazy(() => import('../../DemoPages/Dashboards'));
+const Dashboards = lazy(() => import('../../pages/Dashboards'));
 
+const Flight = lazy(() => import('../../pages/Flight'));
 // const Widgets = lazy(() => import('../../DemoPages/Widgets'));
 // const Elements = lazy(() => import('../../DemoPages/Elements'));
 // const Components = lazy(() => import('../../DemoPages/Components'));
@@ -106,7 +107,7 @@ const AppMain = () => {
                     </div>
                 </div>
             }>
-                {/*<Route path="/widgets" component={Widgets}/>*/}
+                <Route path="/flights" component={Flight}/>
             </Suspense>
 
             {/* Dashboards */}

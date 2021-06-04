@@ -23,7 +23,7 @@ class Nav extends Component {
                             </div>
                             {/*<MetisMenu content={UserMenu} activeLinkFromLocation className="vertical-nav-menu" iconNamePrefix="" classNameStateIcon="pe-7s-angle-down"/>*/}
                             {/*<h5 className="app-sidebar__heading ches2">Vjaceslavs Marmiss</h5>*/}
-                            <MetisMenu content={ComponentsNav} activeLinkFromLocation className="vertical-nav-menu" iconNamePrefix="" classNameStateIcon="pe-7s-angle-down"/>
+                            <MetisMenu content={ComponentsNav}  className="vertical-nav-menu" iconNamePrefix="" classNameStateIcon="pe-7s-angle-down"/>
                         </li>
                     </ul>
                 </div>

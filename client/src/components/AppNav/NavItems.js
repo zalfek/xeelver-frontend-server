@@ -44,7 +44,7 @@ export const ComponentsNav = [
         content: [
             {
                 label: 'Flight dates',
-                to: '#/elements/buttons-standard',
+                to: '#/flights/dates',
             },
             // {
             //     label: 'Dropdowns',
@@ -155,3 +155,15 @@ export const ChartsNav = [
         to: '#/charts/chartjs',
     },
 ];
+export const BasketNav  = [
+    {
+        icon : 'pe-7s-cart',
+        label: '',
+        content: [
+
+
+        ]
+    }
+
+
+]

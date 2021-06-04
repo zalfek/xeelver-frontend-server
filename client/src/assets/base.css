@@ -7966,7 +7966,9 @@ button,
   .app-header .header-user-info > .widget-heading, .app-header .header-user-info > .widget-subheading {
     white-space: nowrap; }
   .app-header .header-user-info > .widget-subheading {
-    font-size: 0.8rem; }
+    font-size: 0.8rem;
+    text-align: end;
+  }
 
 .app-header__logo {
   padding: 0 1.5rem;
@@ -7976,9 +7978,10 @@ button,
   align-items: center;
   transition: width .2s; }
   .app-header__logo .logo-src {
-    height: 23px;
-    width: 97px;
-    background: url('https://i.imgur.com/t2Qz0pE.jpg') }
+    height: 41px;
+    width: 135px;
+    background: url('https://i.imgur.com/7wIgp1V.jpg');
+    border: 1px solid white}
 
 .app-header__menu,
 .app-header__mobile-menu {
@@ -8007,8 +8010,8 @@ button,
   .header-btn-lg .hamburger-inner::after {
     background: #868e96; }
 
-.app-header.header-text-light .app-header__logo {
-  background: rgba(255, 255, 255, 0.1); }
+/*.app-header.header-text-light .app-header__logo {*/
+/*  background: rgba(255, 255, 255, 0.1); }*/
 .app-header.header-text-light .app-header-left > .nav > li > .nav-link {
   color: rgba(255, 255, 255, 0.7); }
   .app-header.header-text-light .app-header-left > .nav > li > .nav-link .nav-link-icon {
@@ -8058,14 +8061,14 @@ button,
 .app-header.header-text-light .search-wrapper .input-holder .search-icon span::before {
   background: rgba(255, 255, 255, 0.8); }
 .app-header.header-text-light .app-header__logo .logo-src {
-  background: url("https://i.imgur.com/t2Qz0pE.jpg"); }
+  background: url("https://i.imgur.com/7wIgp1V.jpg"); }
 .app-header.header-text-light .app-header__mobile-menu .hamburger-inner,
 .app-header.header-text-light .app-header__mobile-menu .hamburger-inner::before,
 .app-header.header-text-light .app-header__mobile-menu .hamburger-inner::after {
   background: rgba(255, 255, 255, 0.9); }
 
-.app-header.header-text-dark .app-header__logo {
-  background: rgba(0, 0, 0, 0.1); }
+/*.app-header.header-text-dark .app-header__logo {*/
+/*  !*background: rgba(0, 0, 0, 0.1); }*!*/
 .app-header.header-text-dark .app-header-left > .nav > li > .nav-link {
   color: rgba(0, 0, 0, 0.7); }
   .app-header.header-text-dark .app-header-left > .nav > li > .nav-link .nav-link-icon {
@@ -8088,7 +8091,7 @@ button,
 .app-header.header-text-dark .app-header-right .widget-content-left > .btn-group > .btn-link,
 .app-header.header-text-dark .app-header-right .widget-content-left .widget-heading,
 .app-header.header-text-dark .app-header-right .widget-content-left .widget-subheading {
-  color: rgba(0, 0, 0, 0.8); }
+  color: rgba(0, 0, 0, 0.8) ; width: 50px; }
 .app-header.header-text-dark .search-wrapper .input-holder .search-icon {
   background: rgba(0, 0, 0, 0.1); }
 .app-header.header-text-dark .search-wrapper.active .input-holder {
@@ -8109,7 +8112,7 @@ button,
 .app-header.header-text-dark .search-wrapper .input-holder .search-icon span::before {
   background: rgba(0, 0, 0, 0.8); }
 .app-header.header-text-dark .app-header__logo .logo-src {
-  background: url("https://i.imgur.com/t2Qz0pE.jpg"); }
+  background: url("https://i.imgur.com/7wIgp1V.jpg"); }
 
 .app-sidebar {
   width: 280px;
@@ -8244,8 +8247,8 @@ button,
           height: 2.3em;
           line-height: 2.3em;
           color: #868e96; }
-          .vertical-nav-menu .metismenu-container .metismenu-container.visible > .metismenu-item > .metismenu-link:hover {
-            color: #033C73; }
+          /*.vertical-nav-menu .metismenu-container .metismenu-container.visible > .metismenu-item > .metismenu-link:hover {*/
+          /*  color: #033C73; }*/
           .vertical-nav-menu .metismenu-container .metismenu-container.visible > .metismenu-item > .metismenu-link .metismenu-icon {
             display: none; }
           .vertical-nav-menu .metismenu-container .metismenu-container.visible > .metismenu-item > .metismenu-link.active {
@@ -8287,7 +8290,7 @@ button,
   .app-sidebar.sidebar-text-light .ps__rail-y:hover .ps__thumb-y {
     background: rgba(255, 255, 255, 0.2); }
   .app-sidebar.sidebar-text-light .app-header__logo .logo-src {
-    background: url("https://i.imgur.com/t2Qz0pE.jpg"); }
+    background: url("https://i.imgur.com/7wIgp1V.jpg"); }
   .app-sidebar.sidebar-text-light .app-header__logo .hamburger-inner,
   .app-sidebar.sidebar-text-light .app-header__logo .hamburger-inner::before,
   .app-sidebar.sidebar-text-light .app-header__logo .hamburger-inner::after {
@@ -8438,7 +8441,7 @@ button,
 .closed-sidebar.closed-sidebar-mobile .app-sidebar:hover .app-header__logo {
   width: 280px; }
   .closed-sidebar.closed-sidebar-mobile .app-sidebar:hover .app-header__logo .logo-src {
-    width: 97px;
+    width: 135px;
     margin: 0; }
 .closed-sidebar.closed-sidebar-mobile .app-header {
   margin-left: 0 !important; }
@@ -8472,8 +8475,8 @@ button,
 .app-theme-white .app-footer .app-footer__inner,
 .app-theme-white .app-header {
   background: #fafbfc; }
-.app-theme-white.fixed-header .app-header__logo {
-  background: rgba(250, 251, 252, 0.1); }
+/*.app-theme-white.fixed-header .app-header__logo {*/
+/*  background: rgba(250, 251, 252, 0.1); }*/
 
 .app-footer {
   height: 60px; }
@@ -9436,7 +9439,7 @@ body {
 .btn {
   position: relative;
   transition: color 0.15s, background-color 0.15s, border-color 0.15s, box-shadow 0.15s;
-  font-size: 0.8rem; }
+  font-size: 1.5rem; }
   @media screen and (prefers-reduced-motion: reduce) {
     .btn {
       transition: none; } }
@@ -10066,6 +10069,10 @@ body {
   flex: 1;
   position: relative;
   align-items: center; }
+
+.widget-content-wrapper:hover {
+background: rgba(255, 255, 255, 0.1);
+border-radius:5%;}
 
 .icon-wrapper {
   width: 54px;
@@ -12141,7 +12148,7 @@ body {
     .sidebar-mobile-open .app-sidebar .app-header__logo {
       width: auto !important; }
       .sidebar-mobile-open .app-sidebar .app-header__logo .logo-src {
-        width: 97px !important;
+        width: 135px !important;
         margin-left: auto;
         margin-right: 0; }
   .sidebar-mobile-open .fixed-sidebar .app-sidebar {
