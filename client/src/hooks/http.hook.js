@@ -3,10 +3,19 @@ import {AuthContext} from '../context/AuthContext'
 
 
 export const useHttp = () => {
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading, setToken] = useState(false)
     const [error, setError] = useState(null)
     let {token} = useContext(AuthContext)
+    const auth = useContext(AuthContext)
+    const refreshToken = useCallback((jwtToken) => {
+        setToken(jwtToken)
+
+    }, [])
+
+
     const request = useCallback(async (url, method = 'POST', body = null, headers = {}) => {
+
+
         setLoading(true)
         try {
             if (body) {
@@ -15,7 +24,7 @@ export const useHttp = () => {
             }
 
             let response = await fetch(url, {method, body, headers})
-            if(response.status === 401){
+            if ((response.status === 401) || (response.status === 403)) {
                 var details = {
                     'grant_type': 'client_credentials',
                     'client_id': 'istio',
@@ -35,20 +44,26 @@ export const useHttp = () => {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     },
                     body: formBody
-                })
-                const authBody = (await authResponse).json()
-                token = authBody.access_token
-                response = await fetch(url, {method, body, headers})
+                }).then(function (response) {
+                    return response.json();
+                }).then(async function (data) {
+                        console.log(data.access_token)
+                        auth.login(data.token)
+                        console.log(token)
+                            console.log(headers)
+                        response = await fetch(url, {method, body, headers})
+                    }
+                )
 
 
-                if (!response.ok) {
-                    throw new Error(data.message || 'Something went wrong!')
-                }
-
-                 }
+            }
+            if (!response.ok) {
+                throw new Error('Something went wrong!')
+            }
+            console.log(response)
             const data = await response.json()
             setLoading(false)
-
+            console.log(data)
             return data
         } catch (e) {
             setLoading(false)
@@ -59,6 +74,6 @@ export const useHttp = () => {
 
     const clearError = useCallback(() => setError(null), [])
 
-    return { loading, request, error, clearError }
+    return {loading, request, error, clearError}
 }
 

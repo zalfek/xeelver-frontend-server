@@ -44,7 +44,7 @@ export const ComponentsNav = [
         content: [
             {
                 label: 'Flight dates',
-                to: '#/flights/dates',
+                to: '/flights/search',
             },
             // {
             //     label: 'Dropdowns',
