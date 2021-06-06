@@ -1,19 +1,15 @@
-// import React, {Fragment} from 'react';
+import React, {Fragment} from 'react'
+import {Link} from "react-router-dom";
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import {
     Col, Row, Card, CardBody,
     CardTitle, Button, Form, FormGroup, Label, Input
 } from 'reactstrap';
-import React, {useCallback, useContext, useEffect, useState, Fragment} from 'react'
-import AppHeader from "../../../components/AppHeader";
-import AppSidebar from "../../../components/AppSidebar";
-import {Link} from "react-router-dom";
 
 export default class Flights extends React.Component {
     render() {
         return (
             <Fragment>
-
                 <ReactCSSTransitionGroup
                     component="div"
                     transitionName="TabsAnimation"
@@ -21,13 +17,6 @@ export default class Flights extends React.Component {
                     transitionAppearTimeout={0}
                     transitionEnter={false}
                     transitionLeave={false}>
-
-                    <AppHeader/>
-                    <div className="app-main">
-                        <AppSidebar/>
-                        <div className="app-main__outer">
-                            <div className="app-main__inner">
-
                                 <Card className="main-card mb-3">
                                     <CardBody>
                                         <CardTitle>Flights</CardTitle>
@@ -106,15 +95,6 @@ export default class Flights extends React.Component {
 
                                     </CardBody>
                                 </Card>
-                            </div>
-                        </div>
-                    </div>
-                    {/*<Card className="main-card mb-3">*/}
-                    {/*    <CardBody>*/}
-                    {/*        <CardTitle>Inline</CardTitle>*/}
-                    {/*        /!*<FormInline/>*!/*/}
-                    {/*    </CardBody>*/}
-                    {/*</Card>*/}
                 </ReactCSSTransitionGroup>
             </Fragment>
         );

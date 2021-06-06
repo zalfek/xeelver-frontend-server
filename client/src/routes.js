@@ -1,40 +1,34 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import {Switch, Route, Redirect} from 'react-router-dom'
-import Main from "./pages/Main";
 import Flights from "./pages/Flight/Main";
 import Dashboards from "./pages/Dashboards";
-import Flight from "./pages/Flight";
 import {FlightList} from "./pages/FlightList/FlightList";
+import AppHeader from "./components/AppHeader";
+import AppSidebar from "./components/AppSidebar";
 
-export const useRoutes = isAuthenticated => {
-    if (isAuthenticated) {
-        return (
-            <Switch>
-                <Route path="/" exact>
-                    {/*<LinksPage />*/}
-                </Route>
-                <Route path="/create" exact>
-                    {/*<CreatePage />*/}
-                </Route>
-                <Route path="/detail/:id">
-                    {/*<DetailPage />*/}
-                </Route>
-                <Redirect to="/create" />
-            </Switch>
-        )
-    }
+export const useRoutes = () => {
 
     return (
-        <Switch>
-            <Route path="/" exact>
-                <Dashboards/>
-            </Route>
-            <Route path="/flights/search" exact>
-                <Flights/>
-            </Route>
-            <Route path="/flights/list" exact>
-                <FlightList/>
-            </Route>
-        </Switch>
+        <Fragment>
+            <AppHeader/>
+            <div className="app-main">
+                <AppSidebar/>
+                <div className="app-main__outer">
+                    <div className="app-main__inner">
+                        <Switch>
+                            <Route path="/" exact>
+                                <Dashboards/>
+                            </Route>
+                            <Route path="/flights/search" exact>
+                                <Flights/>
+                            </Route>
+                            <Route path="/flights/list" exact>
+                                <FlightList/>
+                            </Route>
+                        </Switch>
+                    </div>
+                </div>
+            </div>
+        </Fragment>
     )
 }

@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import cx from 'classnames';
 import {withRouter} from 'react-router-dom';
 import ResizeDetector from 'react-resize-detector';
+import {useRoutes} from "../../routes";
 
 class Main extends React.Component {
     constructor(props) {
@@ -12,7 +13,6 @@ class Main extends React.Component {
         };
 
     }
-
     render() {
         let {
             colorScheme,
@@ -39,6 +39,7 @@ class Main extends React.Component {
                             {'closed-sidebar-mobile': closedSmallerSidebar || width < 1250},
                             {'sidebar-mobile-open': enableMobileMenu},
                         )}>
+                            {useRoutes()}
                         </div>
                     </Fragment>
                 )}

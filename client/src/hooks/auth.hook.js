@@ -8,7 +8,6 @@ export const useAuth = () => {
 
     const login = useCallback((jwtToken) => {
         setToken(jwtToken)
-
         localStorage.setItem(storageName, JSON.stringify({
             token: jwtToken
         }))
