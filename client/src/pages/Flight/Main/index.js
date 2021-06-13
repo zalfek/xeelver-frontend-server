@@ -1,104 +1,192 @@
-import React, {Fragment} from 'react'
+import React from 'react';
+
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import {Form} from 'react-final-form';
 import {Link} from "react-router-dom";
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import {
-    Col, Row, Card, CardBody,
-    CardTitle, Button, Form, FormGroup, Label, Input
-} from 'reactstrap';
-
-export default class Flights extends React.Component {
-    render() {
-        return (
-            <Fragment>
-                <ReactCSSTransitionGroup
-                    component="div"
-                    transitionName="TabsAnimation"
-                    transitionAppear={true}
-                    transitionAppearTimeout={0}
-                    transitionEnter={false}
-                    transitionLeave={false}>
-                                <Card className="main-card mb-3">
-                                    <CardBody>
-                                        <CardTitle>Flights</CardTitle>
-                                        <Form>
-                                            <Row form>
-                                                <Col md={6}>
-                                                    <FormGroup>
-                                                        <Label for="exampleEmail11">From</Label>
-                                                        <Input type="email" name="email" id="exampleEmail11"
-                                                               placeholder="Country,city or airport"/>
-                                                    </FormGroup>
-                                                </Col>
-                                                <Col md={6}>
-                                                    <FormGroup>
-                                                        <Label for="examplePassword11">To</Label>
-                                                        <Input type="password" name="password" id="examplePassword11"
-                                                               placeholder="Country,city or airport"/>
-                                                    </FormGroup>
-                                                </Col>
-                                            </Row>
-
-                                            <Form>
-                                                <FormGroup check inline>
-                                                    <Label check>
-                                                        <Input type="checkbox"/> One way
-                                                    </Label>
-                                                </FormGroup>
-                                            </Form>
-                                            <br/>
-                                            <Row form>
-                                                <Col md={2}>
-                                                    <FormGroup>
-                                                        <Label for="exampleCity">Start Date</Label>
-                                                        <Input type="text" name="city" id="exampleCity"/>
-                                                    </FormGroup>
-                                                </Col>
-                                                <Col md={2}>
-                                                    <FormGroup>
-                                                        <Label for="exampleState">End Date</Label>
-                                                        <Input type="text" name="state" id="exampleState"/>
-                                                    </FormGroup>
-                                                </Col>
-                                            </Row>
-
-                                            <FormGroup>
-                                                <Label for="exampleState">How many people?</Label>
-                                                <Input className="mb-2" type="select">
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                </Input>
-                                            </FormGroup>
+import {TextField, Checkboxes, Select, DatePicker,} from 'mui-rff';
+import {Paper, Grid, Button, MenuItem} from '@material-ui/core';
+import DateFnsUtils from '@date-io/date-fns';
 
 
-                                            <Button color="primary" className="mt-2"
-                                            >
-                                                <Link to={{
-                                                    pathname: "/flights/list",
-                                                    state: {
-                                                        "originLocationCode": "RIO",
-                                                        "destinationLocationCode": "MAD",
-                                                        "departureDate": "2021-06-20",
-                                                        "returnDate": "2021-06-25",
-                                                        "adults": 2,
-                                                        "max": 100,
-                                                        "children": 0,
-                                                        "travelClass": "ECONOMY",
-                                                        "nonStop": "false",
-                                                        "currencyCode": "EUR"
-                                                    }
-                                                }}>Search
-                                                </Link>
-                                            </Button>
-                                        </Form>
+export default function CheckboxLabels() {
+    const [state, setState] = React.useState({
+        checkedB: false
+    });
 
-                                    </CardBody>
-                                </Card>
-                </ReactCSSTransitionGroup>
-            </Fragment>
-        );
+    const handleChange = (event) => {
+        setState({...state, [event.target.name]: event.target.checked});
+        if (!state.checkedB) {
+            event.returnDate = new Intl.DateTimeFormat('en-DE').format(event.returnDate).replaceAll('/', '-');
+        }
+    };
+
+
+    function onSubmit(){}
+
+    function Check() {
+        if (!state.checkedB) {
+            return (
+                <DatePicker
+                    name="returnDate"
+                    margin="normal"
+                    label="Return Date"
+                    dateFunsUtils={DateFnsUtils}
+                    disablePast={true}
+                    format="dd-MM-yyyy"
+                    onChangeCapture={onReturnChangeDate}
+                />
+            );
+        } else {
+            return null
+        }
+
     }
+
+    const onDepartureChangeDate = async values => {
+        values.departureDate = new Intl.DateTimeFormat('en-DE').format(values.departureDate).replaceAll('/', '-');
+    };
+
+
+    const onReturnChangeDate = (values) => {
+        values.nonStop = values.nonStop.toString()
+        if (!state.checkedB) {
+            values.returnDate = new Intl.DateTimeFormat('en-DE').format(values.returnDate).replaceAll('/', '-');
+        } else {
+            values.returnDate = undefined;
+        }
+    };
+
+
+    return (
+        <Form
+            onSubmit={onSubmit}
+            initialValues={{nonStop: false}}
+            // validate={validate}
+            render={({handleSubmit, form, submitting, pristine, values}) => (
+                <form onSubmit={handleSubmit} noValidate>
+                    <Paper style={{padding: 16}}>
+                        <Grid container alignItems="flex-start" spacing={2}>
+                            <Grid item xs={6}>
+                                <TextField
+                                    label="Origin airport"
+                                    name="originLocationCode"
+                                    margin="none"
+                                    required={true}
+                                />
+                            </Grid>
+                            <Grid item xs={6}>
+                                <TextField
+                                    label="Destination airport"
+                                    name="destinationLocationCode"
+                                    margin="none"
+                                    required={true}
+                                />
+                            </Grid>
+                            <Grid item xs={3}>
+                                <DatePicker
+                                    name="departureDate"
+                                    margin="normal"
+                                    label="Departure Date"
+                                    dateFunsUtils={DateFnsUtils}
+                                    disablePast={true}
+                                    format="dd-MM-yyyy"
+                                    onChangeCapture={onDepartureChangeDate}
+                                />
+                            </Grid>
+                            <Grid item xs={3}>
+                                <Check/>
+                            </Grid>
+                            <Grid item xs={3}>
+                                <FormGroup row>
+                                    <FormControlLabel
+                                        control={
+                                            <Checkbox
+                                                checked={state.checkedB}
+                                                onChange={handleChange}
+                                                name="checkedB"
+                                                color="primary"
+
+                                            />
+                                        }
+                                        label="One Way"
+                                    />
+                                </FormGroup>
+                            </Grid>
+                            <Grid item xs={3}>
+                                <Checkboxes
+                                    label="Stops"
+                                    name="nonStop"
+                                    color='primary'
+                                    formControlProps={{margin: 'none'}}
+                                    formGroupProps={{row: true}}
+                                    data={{label: 'Direct plane', value: 'true'}
+                                    }
+                                />
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Select
+                                    name="adults"
+                                    label="Adults"
+                                    formControlProps={{margin: 'none'}}
+                                >
+                                    <MenuItem value="1">1</MenuItem>
+                                    <MenuItem value="2">2</MenuItem>
+                                    <MenuItem value="3">3</MenuItem>
+                                    <MenuItem value="4">4</MenuItem>
+                                    <MenuItem value="5">5</MenuItem>
+                                </Select>
+
+
+                            </Grid>
+                            <Grid item xs={6}>
+
+
+                                <Select
+                                    name="children"
+                                    label="Children"
+                                    formControlProps={{margin: 'none'}}
+                                >
+                                    <MenuItem value="1">1</MenuItem>
+                                    <MenuItem value="2">2</MenuItem>
+                                    <MenuItem value="3">3</MenuItem>
+                                    <MenuItem value="4">4</MenuItem>
+                                    <MenuItem value="5">5</MenuItem>
+                                </Select>
+                            </Grid>
+                            <Grid item style={{marginTop: 16}}>
+                                <Button
+                                    type="button"
+                                    variant="contained"
+                                    onClick={form.reset}
+                                    disabled={submitting || pristine}
+                                >
+                                    Reset
+                                </Button>
+                            </Grid>
+                            <Grid item style={{marginTop: 16}}>
+                                <Link to={{
+                                    pathname: "/flights/list",
+                                    state: JSON.stringify(values, 2, 0)
+                                }}>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        type="submit"
+                                        disabled={submitting || pristine}
+                                    >
+                                        Search
+                                    </Button>
+                                </Link>
+                            </Grid>
+                        </Grid>
+                    </Paper>
+                    <pre>{JSON.stringify(values, 0, 2)}</pre>
+                </form>
+            )}
+        />
+    );
 
 
 }
