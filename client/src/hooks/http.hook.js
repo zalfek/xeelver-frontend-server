@@ -19,7 +19,6 @@ export const useHttp = () => {
     async function sendRequest(url, body, headers, method) {
         try {
             if (body) {
-                body = JSON.stringify(body)
                 headers['Content-Type'] = 'application/json'
                 if (UserService.isLoggedIn()) {
                     headers['Authorization'] = `Bearer ${UserService.getToken()}`
@@ -29,7 +28,7 @@ export const useHttp = () => {
             if (!response.ok) {
                 throw new Error('Something went wrong!Response status:' + response.status)
             }
-            const data = await response.json()
+            const data = await response.json() //.json()
             setLoading(false)
             console.log(data)
             return data

@@ -83,7 +83,7 @@ export const ComponentsNav = [
         content: [
             {
                 label: 'Book dates',
-                to: '#/components/tabs',
+                to: '/hotels/search',
             },
             // {
             //     label: 'Notifications',

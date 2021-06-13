@@ -73,13 +73,13 @@ export const FlightCard = (props) => {
                     id="panel1c-header"
                 >
                     <div className={classes.column}>
-                        <Typography className={classes.heading}>Ryanair</Typography>
+                        <Typography className={classes.heading}>{props.airLine}</Typography>
                     </div>
                     <div className={classes.column}>
-                        <Typography className={classes.secondaryHeading}>2h 55m</Typography>
+                        <Typography className={classes.secondaryHeading}>{props.duration}</Typography>
                     </div>
                     <div className={classes.column}>
-                        <Typography className={classes.ThirdHeading}>300€</Typography>
+                        <Typography className={classes.ThirdHeading}>{props.price}</Typography>
                     </div>
                 </AccordionSummary>
                 <AccordionDetails className={classes.details}>

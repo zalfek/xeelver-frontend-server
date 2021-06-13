@@ -7,7 +7,7 @@ import {
 
 const Dashboards = lazy(() => import('../../pages/Dashboards'));
 
-const Flight = lazy(() => import('../../pages/Flight'));
+// const Flight = lazy(() => import('../../pages/Flight'));
 // const Widgets = lazy(() => import('../../DemoPages/Widgets'));
 // const Elements = lazy(() => import('../../DemoPages/Elements'));
 // const Components = lazy(() => import('../../DemoPages/Components'));

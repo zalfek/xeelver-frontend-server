@@ -1,3 +1,7 @@
+
+
+
+
 import React from 'react';
 
 import FormGroup from '@material-ui/core/FormGroup';
@@ -8,11 +12,10 @@ import {Link} from "react-router-dom";
 import {TextField, Checkboxes, Select, DatePicker,} from 'mui-rff';
 import {Paper, Grid, Button, MenuItem} from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns';
-import {useHistory} from "react-router-dom";
 
 
-export default function FlightSearch() {
-    let history = useHistory();
+export default function Hotels() {
+
     const [state, setState] = React.useState({
         checkedB: false
     });
@@ -24,22 +27,7 @@ export default function FlightSearch() {
         }
     };
 
-
-    function onSubmit(values) {
-        values.nonStop = values.nonStop.toString()
-        if (!state.checkedB) {
-            values.returnDate = new Intl.DateTimeFormat('en-DE').format(values.returnDate).replaceAll('/', '-').split("-").reverse().join("-");
-        } else {
-            values.returnDate = undefined;
-        }
-        values.departureDate = new Intl.DateTimeFormat('en-DE').format(values.departureDate).replaceAll('/', '-').split("-").reverse().join("-");
-        values.nonStop = values.nonStop.toString()
-        history.push({
-            pathname: '/flights/list',
-            state: JSON.stringify(values)
-        });
-    }
-
+    function onSubmit(){}
     function Check() {
         if (!state.checkedB) {
             return (
@@ -50,6 +38,7 @@ export default function FlightSearch() {
                     dateFunsUtils={DateFnsUtils}
                     disablePast={true}
                     format="dd-MM-yyyy"
+                    onChangeCapture={onReturnChangeDate}
                 />
             );
         } else {
@@ -57,6 +46,21 @@ export default function FlightSearch() {
         }
 
     }
+
+    const onDepartureChangeDate = async values => {
+        values.departureDate = new Intl.DateTimeFormat('en-DE').format(values.departureDate).replaceAll('/', '-');
+    };
+
+
+    const onReturnChangeDate = (values) => {
+        // values.nonStop = values.nonStop.toString()
+        if (!state.checkedB) {
+            values.returnDate = new Intl.DateTimeFormat('en-DE').format(values.returnDate).replaceAll('/', '-');
+        } else {
+            values.returnDate = undefined;
+        }
+    };
+
 
     return (
         <Form
@@ -67,18 +71,10 @@ export default function FlightSearch() {
                 <form onSubmit={handleSubmit} noValidate>
                     <Paper style={{padding: 16}}>
                         <Grid container alignItems="flex-start" spacing={2}>
-                            <Grid item xs={6}>
+                            <Grid item xs={12}>
                                 <TextField
-                                    label="Origin airport"
+                                    label="Where are you going?"
                                     name="originLocationCode"
-                                    margin="none"
-                                    required={true}
-                                />
-                            </Grid>
-                            <Grid item xs={6}>
-                                <TextField
-                                    label="Destination airport"
-                                    name="destinationLocationCode"
                                     margin="none"
                                     required={true}
                                 />
@@ -87,10 +83,11 @@ export default function FlightSearch() {
                                 <DatePicker
                                     name="departureDate"
                                     margin="normal"
-                                    label="Departure Date"
+                                    label="Check in"
                                     dateFunsUtils={DateFnsUtils}
                                     disablePast={true}
                                     format="dd-MM-yyyy"
+                                    onChangeCapture={onDepartureChangeDate}
                                 />
                             </Grid>
                             <Grid item xs={3}>
@@ -164,14 +161,19 @@ export default function FlightSearch() {
                                 </Button>
                             </Grid>
                             <Grid item style={{marginTop: 16}}>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    type="submit"
-                                    disabled={submitting || pristine}
-                                >
-                                    Search
-                                </Button>
+                                <Link to={{
+                                    pathname: "/flights/list",
+                                    state: JSON.stringify(values, 2, 0)
+                                }}>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        type="submit"
+                                        disabled={submitting || pristine}
+                                    >
+                                        Search
+                                    </Button>
+                                </Link>
                             </Grid>
                         </Grid>
                     </Paper>

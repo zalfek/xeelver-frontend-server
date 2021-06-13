@@ -1,10 +1,11 @@
 import React, {Fragment} from 'react'
 import {Switch, Route, Redirect} from 'react-router-dom'
-import Flights from "./pages/Flight/Main";
 import Dashboards from "./pages/Dashboards";
 import {FlightList} from "./pages/FlightList/FlightList";
 import AppHeader from "./components/AppHeader";
 import AppSidebar from "./components/AppSidebar";
+import Hotels from "./pages/Hotels/Hotels";
+import FlightSearch from "./pages/Flight/Main";
 
 export const useRoutes = () => {
 
@@ -20,10 +21,13 @@ export const useRoutes = () => {
                                 <Dashboards/>
                             </Route>
                             <Route path="/flights/search" exact>
-                                <Flights/>
+                                <FlightSearch/>
                             </Route>
                             <Route path="/flights/list" exact>
                                 <FlightList/>
+                            </Route>
+                            <Route path="/hotels/search" exact>
+                                <Hotels/>
                             </Route>
                         </Switch>
                     </div>
