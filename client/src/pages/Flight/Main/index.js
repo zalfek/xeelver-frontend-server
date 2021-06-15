@@ -9,10 +9,20 @@ import {TextField, Checkboxes, Select, DatePicker,} from 'mui-rff';
 import {Paper, Grid, Button, MenuItem} from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns';
 import {useHistory} from "react-router-dom";
+import {makeStyles} from "@material-ui/core/styles";
 
+const useStyles = makeStyles((theme) => ({
+    checkboxOneWay: {
+        marginTop:25,
+    },
+    checkboxNonStops:{
+        marginTop:26,
+    }
+}));
 
 export default function FlightSearch() {
     let history = useHistory();
+    const classes = useStyles();
     const [state, setState] = React.useState({
         checkedB: false
     });
@@ -96,7 +106,7 @@ export default function FlightSearch() {
                             <Grid item xs={3}>
                                 <Check/>
                             </Grid>
-                            <Grid item xs={3}>
+                            <Grid item xs={3} className={classes.checkboxOneWay}>
                                 <FormGroup row>
                                     <FormControlLabel
                                         control={
@@ -112,9 +122,8 @@ export default function FlightSearch() {
                                     />
                                 </FormGroup>
                             </Grid>
-                            <Grid item xs={3}>
+                            <Grid item xs={3} className={classes.checkboxNonStops}>
                                 <Checkboxes
-                                    label="Stops"
                                     name="nonStop"
                                     color='primary'
                                     formControlProps={{margin: 'none'}}
@@ -129,6 +138,7 @@ export default function FlightSearch() {
                                     label="Adults"
                                     formControlProps={{margin: 'none'}}
                                 >
+                                    <MenuItem value="0">0</MenuItem>
                                     <MenuItem value="1">1</MenuItem>
                                     <MenuItem value="2">2</MenuItem>
                                     <MenuItem value="3">3</MenuItem>
@@ -146,6 +156,7 @@ export default function FlightSearch() {
                                     label="Children"
                                     formControlProps={{margin: 'none'}}
                                 >
+                                    <MenuItem value="0">0</MenuItem>
                                     <MenuItem value="1">1</MenuItem>
                                     <MenuItem value="2">2</MenuItem>
                                     <MenuItem value="3">3</MenuItem>

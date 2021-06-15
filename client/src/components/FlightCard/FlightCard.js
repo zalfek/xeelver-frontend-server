@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
         width: '75%',
         borderRadius:'10%',
         marginLeft :125,
+        marginBottom:75,
     },
 
     heading: {
@@ -35,8 +36,9 @@ const useStyles = makeStyles((theme) => ({
         height: 20,
         width: 20,
     },
-    ches:{
-        justifyContent:'center',
+    checkButton:{
+        justifyContent:'flex-end',
+        marginLeft: 100,
     },
     details: {
         alignItems: 'center',
@@ -61,7 +63,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-
 export const FlightCard = (props) => {
     const classes = useStyles();
     return (
@@ -73,49 +74,74 @@ export const FlightCard = (props) => {
                     id="panel1c-header"
                 >
                     <div className={classes.column}>
-                        <Typography className={classes.heading}>{props.airLine}</Typography>
-                    </div>
-                    <div className={classes.column}>
-                        <Typography className={classes.secondaryHeading}>{props.duration}</Typography>
-                    </div>
-                    <div className={classes.column}>
-                        <Typography className={classes.ThirdHeading}>{props.price}</Typography>
+                        <Typography className={clsx(classes.ThirdHeading,classes.checkButton)}>
+                            <Button variant="outlined" size="medium" color="primary" >
+                                Check {" " + props.price}
+                            </Button>
+                        </Typography>
                     </div>
                 </AccordionSummary>
+
+                <Divider />
                 <AccordionDetails className={classes.details}>
-                    {/* <div className={classes.column} /> */}
-                    <div className={classes.column}>
+                     <div className={classes.column} >
+                        <Typography variant="caption"  className={classes.secondaryHeading}>
+                            {props.airLine }
+                            <br/>
+                            {props.duration.slice(2,5).toLowerCase() + " " + props.duration.slice(5).toLowerCase()}
+                            <br/>
+                            {props.stops + " stops"}
+                        </Typography>
+                    </div>
+                    <div className={clsx(classes.column,classes.helper)}>
                         <Typography variant="h4">
-                            13:05
+                            {props.departureTime.slice(11,16)}
                             <br />
                         </Typography>
                         <Typography variant ="caption">
-
-                            Cologne
+                            {props.departureAirport}
                         </Typography>
                     </div>
                     <div className={clsx(classes.column, classes.helper)}>
                         <Typography variant="h4">
-                            15:25
+                            {props.arrivalTime.slice(11,16)}
                             <br/>
                         </Typography>
                         <Typography variant="caption" >
-                            Saint-Petersbourg
+                            {props.arrivalAirport}
                         </Typography>
-                    </div>
-                    <div className={clsx(classes.column, classes.helper)}>
-                        <AccordionActions className={classes.ches}>
-                            {/*<Typography variant="h5">*/}
-                            {/*    300€*/}
-                            {/*    <br/>*/}
-                            {/*</Typography>*/}
-                            <Button variant="outlined" size="large" color="primary" >
-                                Check
-                            </Button>
-                        </AccordionActions>
                     </div>
                 </AccordionDetails>
                 <Divider />
+                <AccordionDetails className={classes.details}>
+                    <div className={classes.column} >
+                        <Typography variant="caption"  className={classes.secondaryHeading}>
+                            {props.returnAirline}
+                            <br/>
+                            {props.returnDuration.slice(2,5).toLowerCase() + " " + props.duration.slice(5).toLowerCase()}
+                            <br/>
+                            {props.stops + " stops"}
+                        </Typography>
+                    </div>
+                    <div className={clsx(classes.column, classes.helper)}>
+                        <Typography variant="h4">
+                            {props.returnDepartureTime.slice(11,16)}
+                            <br />
+                        </Typography>
+                        <Typography variant ="caption">
+                            {props.returnDepartureAirport}
+                        </Typography>
+                    </div>
+                    <div className={clsx(classes.column, classes.helper)}>
+                        <Typography variant="h4">
+                            {props.returnArrivalTime.slice(11,16)}
+                            <br/>
+                        </Typography>
+                        <Typography variant="caption" >
+                            {props.returnArrivalAirport}
+                        </Typography>
+                    </div>
+                </AccordionDetails>
             </Accordion>
         </div>
     );

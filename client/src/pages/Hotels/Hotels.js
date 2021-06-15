@@ -1,9 +1,5 @@
-
-
-
-
 import React from 'react';
-
+import {useHistory} from "react-router-dom";
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -12,61 +8,34 @@ import {Link} from "react-router-dom";
 import {TextField, Checkboxes, Select, DatePicker,} from 'mui-rff';
 import {Paper, Grid, Button, MenuItem} from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns';
+import {makeStyles} from "@material-ui/core/styles";
 
+
+const useStyles = makeStyles((theme) => ({
+    grid: {
+        marginTop:16,
+    },
+}));
 
 export default function Hotels() {
+    const classes = useStyles();
+    let history = useHistory();
 
-    const [state, setState] = React.useState({
-        checkedB: false
-    });
+    function onSubmit(values) {
 
-    const handleChange = (event) => {
-        setState({...state, [event.target.name]: event.target.checked});
-        if (!state.checkedB) {
-            event.returnDate = new Intl.DateTimeFormat('en-DE').format(event.returnDate).replaceAll('/', '-');
-        }
-    };
+        values.returnDate = new Intl.DateTimeFormat('en-DE').format(values.returnDate).replaceAll('/', '-').split("-").reverse().join("-");
+        values.departureDate = new Intl.DateTimeFormat('en-DE').format(values.departureDate).replaceAll('/', '-').split("-").reverse().join("-");
+        values.nonStop = values.nonStop.toString()
+        history.push({
 
-    function onSubmit(){}
-    function Check() {
-        if (!state.checkedB) {
-            return (
-                <DatePicker
-                    name="returnDate"
-                    margin="normal"
-                    label="Return Date"
-                    dateFunsUtils={DateFnsUtils}
-                    disablePast={true}
-                    format="dd-MM-yyyy"
-                    onChangeCapture={onReturnChangeDate}
-                />
-            );
-        } else {
-            return null
-        }
-
+            pathname: '/hotels/list',
+            state: JSON.stringify(values)
+        });
     }
-
-    const onDepartureChangeDate = async values => {
-        values.departureDate = new Intl.DateTimeFormat('en-DE').format(values.departureDate).replaceAll('/', '-');
-    };
-
-
-    const onReturnChangeDate = (values) => {
-        // values.nonStop = values.nonStop.toString()
-        if (!state.checkedB) {
-            values.returnDate = new Intl.DateTimeFormat('en-DE').format(values.returnDate).replaceAll('/', '-');
-        } else {
-            values.returnDate = undefined;
-        }
-    };
-
-
     return (
         <Form
             onSubmit={onSubmit}
-            initialValues={{nonStop: false}}
-            // validate={validate}
+            initialValues={{}}
             render={({handleSubmit, form, submitting, pristine, values}) => (
                 <form onSubmit={handleSubmit} noValidate>
                     <Paper style={{padding: 16}}>
@@ -87,38 +56,32 @@ export default function Hotels() {
                                     dateFunsUtils={DateFnsUtils}
                                     disablePast={true}
                                     format="dd-MM-yyyy"
-                                    onChangeCapture={onDepartureChangeDate}
                                 />
                             </Grid>
                             <Grid item xs={3}>
-                                <Check/>
+                                <DatePicker
+                                    name="returnDate"
+                                    margin="normal"
+                                    label="Check out"
+                                    dateFunsUtils={DateFnsUtils}
+                                    disablePast={true}
+                                    format="dd-MM-yyyy"
+                                />
                             </Grid>
-                            <Grid item xs={3}>
-                                <FormGroup row>
-                                    <FormControlLabel
-                                        control={
-                                            <Checkbox
-                                                checked={state.checkedB}
-                                                onChange={handleChange}
-                                                name="checkedB"
-                                                color="primary"
-
-                                            />
-                                        }
-                                        label="One Way"
-                                    />
-                                </FormGroup>
-                            </Grid>
-                            <Grid item xs={3}>
-                                <Checkboxes
-                                    label="Stops"
-                                    name="nonStop"
-                                    color='primary'
+                            <Grid item xs={6} className={classes.grid}>
+                                <Select
+                                    name="rooms"
+                                    label="How many rooms?"
                                     formControlProps={{margin: 'none'}}
-                                    formGroupProps={{row: true}}
-                                    data={{label: 'Direct plane', value: 'true'}
-                                    }
-                                />
+                                    margin={16}
+                                >
+                                    <MenuItem value="0">0</MenuItem>
+                                    <MenuItem value="1">1</MenuItem>
+                                    <MenuItem value="2">2</MenuItem>
+                                    <MenuItem value="3">3</MenuItem>
+                                    <MenuItem value="4">4</MenuItem>
+                                    <MenuItem value="5">5</MenuItem>
+                                </Select>
                             </Grid>
                             <Grid item xs={6}>
                                 <Select
@@ -126,23 +89,21 @@ export default function Hotels() {
                                     label="Adults"
                                     formControlProps={{margin: 'none'}}
                                 >
+                                    <MenuItem value="0">0</MenuItem>
                                     <MenuItem value="1">1</MenuItem>
                                     <MenuItem value="2">2</MenuItem>
                                     <MenuItem value="3">3</MenuItem>
                                     <MenuItem value="4">4</MenuItem>
                                     <MenuItem value="5">5</MenuItem>
                                 </Select>
-
-
                             </Grid>
                             <Grid item xs={6}>
-
-
                                 <Select
                                     name="children"
                                     label="Children"
                                     formControlProps={{margin: 'none'}}
                                 >
+                                    <MenuItem value="0">0</MenuItem>
                                     <MenuItem value="1">1</MenuItem>
                                     <MenuItem value="2">2</MenuItem>
                                     <MenuItem value="3">3</MenuItem>
@@ -151,18 +112,8 @@ export default function Hotels() {
                                 </Select>
                             </Grid>
                             <Grid item style={{marginTop: 16}}>
-                                <Button
-                                    type="button"
-                                    variant="contained"
-                                    onClick={form.reset}
-                                    disabled={submitting || pristine}
-                                >
-                                    Reset
-                                </Button>
-                            </Grid>
-                            <Grid item style={{marginTop: 16}}>
                                 <Link to={{
-                                    pathname: "/flights/list",
+                                    pathname: "/hotels/list",
                                     state: JSON.stringify(values, 2, 0)
                                 }}>
                                     <Button
