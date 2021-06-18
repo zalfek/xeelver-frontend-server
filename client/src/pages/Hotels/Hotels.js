@@ -18,18 +18,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Hotels() {
+    // const [state, setState] = React.useState();
+
     const classes = useStyles();
     let history = useHistory();
 
     function onSubmit(values) {
-
-        values.returnDate = new Intl.DateTimeFormat('en-DE').format(values.returnDate).replaceAll('/', '-').split("-").reverse().join("-");
-        values.departureDate = new Intl.DateTimeFormat('en-DE').format(values.departureDate).replaceAll('/', '-').split("-").reverse().join("-");
-        values.nonStop = values.nonStop.toString()
+        values.checkinDate = new Intl.DateTimeFormat('en-DE').format(values.checkinDate).replaceAll('/', '-').split("-").reverse().join("-");
+        values.checkoutDate = new Intl.DateTimeFormat('en-DE').format(values.checkoutDate).replaceAll('/', '-').split("-").reverse().join("-");
         history.push({
-
             pathname: '/hotels/list',
-            state: JSON.stringify(values)
+            state: values
         });
     }
     return (
@@ -43,14 +42,14 @@ export default function Hotels() {
                             <Grid item xs={12}>
                                 <TextField
                                     label="Where are you going?"
-                                    name="originLocationCode"
+                                    name="cityCode"
                                     margin="none"
                                     required={true}
                                 />
                             </Grid>
                             <Grid item xs={3}>
                                 <DatePicker
-                                    name="departureDate"
+                                    name="checkinDate"
                                     margin="normal"
                                     label="Check in"
                                     dateFunsUtils={DateFnsUtils}
@@ -60,7 +59,7 @@ export default function Hotels() {
                             </Grid>
                             <Grid item xs={3}>
                                 <DatePicker
-                                    name="returnDate"
+                                    name="checkoutDate"
                                     margin="normal"
                                     label="Check out"
                                     dateFunsUtils={DateFnsUtils}
@@ -97,34 +96,16 @@ export default function Hotels() {
                                     <MenuItem value="5">5</MenuItem>
                                 </Select>
                             </Grid>
-                            <Grid item xs={6}>
-                                <Select
-                                    name="children"
-                                    label="Children"
-                                    formControlProps={{margin: 'none'}}
-                                >
-                                    <MenuItem value="0">0</MenuItem>
-                                    <MenuItem value="1">1</MenuItem>
-                                    <MenuItem value="2">2</MenuItem>
-                                    <MenuItem value="3">3</MenuItem>
-                                    <MenuItem value="4">4</MenuItem>
-                                    <MenuItem value="5">5</MenuItem>
-                                </Select>
-                            </Grid>
-                            <Grid item style={{marginTop: 16}}>
-                                <Link to={{
-                                    pathname: "/hotels/list",
-                                    state: JSON.stringify(values, 2, 0)
-                                }}>
+                            <Grid item xs={6} style={{marginTop: 16}}>
                                     <Button
                                         variant="contained"
                                         color="primary"
                                         type="submit"
                                         disabled={submitting || pristine}
+                                        fullWidth
                                     >
                                         Search
                                     </Button>
-                                </Link>
                             </Grid>
                         </Grid>
                     </Paper>

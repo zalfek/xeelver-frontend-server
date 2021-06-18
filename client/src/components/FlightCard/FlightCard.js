@@ -4,12 +4,11 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Typography from "@material-ui/core/Typography";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import clsx from "clsx";
-import AccordionActions from "@material-ui/core/AccordionActions";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
-
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -18,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
         marginLeft :125,
         marginBottom:75,
     },
-
     heading: {
         fontSize: theme.typography.pxToRem(15),
     },
@@ -38,16 +36,22 @@ const useStyles = makeStyles((theme) => ({
     },
     checkButton:{
         justifyContent:'flex-end',
-        marginLeft: 100,
+        marginLeft: 30,
     },
     details: {
         alignItems: 'center',
         textAlign:'center',
-        marginLeft : 20,
+        // marginLeft : 20,
+        display:"flex",
+        justifyContent:"center",
     },
     column: {
         flexBasis: '33%',
-
+    },
+    columnChecked: {
+        flexBasis: '33%',
+        display:'flex',
+        justifyContent:'flex-end'
     },
     helper: {
         borderLeft: `2px solid ${theme.palette.divider}`,
@@ -63,85 +67,89 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
+
 export const FlightCard = (props) => {
     const classes = useStyles();
+    const [cardObject, setCardObject] = useState();
+
+
+    function ReturnFlight(){
+        const classes = useStyles();
+        if(props.oneWay > 1){
+            return(
+                <AccordionDetails className={classes.details}>
+                    <div style={{display:'flex',flexDirection : 'column'}}>
+                        <Typography color='textSecondary' align='center' >
+                            {props.returnStops + " stops"}<br/>
+                            {props.returnAirline}
+                        </Typography>
+                        <Typography variant="h5" component="h2" style={{textAlign:'center'}}>
+                            ◦ {props.returnDepartureTime.slice(11,16)} {props.returnDepartureAirport} <span style={{color:'lightgray'}}>━━━━━━━</span> {props.returnArrivalTime.slice(11,16)} {props.returnArrivalAirport} ◦
+                            <Typography color='textSecondary' >
+                                {props.returnDuration.slice(2,5).toLowerCase() + " " + props.returnDuration.slice(5).toLowerCase()}
+                            </Typography>
+                        </Typography>
+                    </div>
+                </AccordionDetails>
+            );
+        } else {
+            return null
+        }
+    }
+
+    useEffect(() => {
+        setCardObject(props.cardObject)
+    }, [])
+
     return (
         <div className={classes.root}>
-            <Accordion defaultExpanded>
+            <Accordion defaultExpanded style={{borderRadius:'20px'}}>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1c-content"
                     id="panel1c-header"
                 >
-                    <div className={classes.column}>
+                    <div className={classes.column} >
+                        <Typography color='textSecondary' variant='subtitle2'>
+                            Thank you for choosing our company!
+                        </Typography>
+                    </div>
+
+                    <div className={classes.column}/>
+
+                    <div className={classes.columnChecked}>
+                        <Link
+                            to={{
+                                pathname: `book/${props.id}`,
+                                state: {cardObject}
+                            }}
+                        >
                         <Typography className={clsx(classes.ThirdHeading,classes.checkButton)}>
                             <Button variant="outlined" size="medium" color="primary" >
                                 Check {" " + props.price}
                             </Button>
                         </Typography>
+                        </Link>
                     </div>
                 </AccordionSummary>
 
                 <Divider />
                 <AccordionDetails className={classes.details}>
-                     <div className={classes.column} >
-                        <Typography variant="caption"  className={classes.secondaryHeading}>
-                            {props.airLine }
-                            <br/>
-                            {props.duration.slice(2,5).toLowerCase() + " " + props.duration.slice(5).toLowerCase()}
-                            <br/>
-                            {props.stops + " stops"}
-                        </Typography>
-                    </div>
-                    <div className={clsx(classes.column,classes.helper)}>
-                        <Typography variant="h4">
-                            {props.departureTime.slice(11,16)}
-                            <br />
-                        </Typography>
-                        <Typography variant ="caption">
-                            {props.departureAirport}
-                        </Typography>
-                    </div>
-                    <div className={clsx(classes.column, classes.helper)}>
-                        <Typography variant="h4">
-                            {props.arrivalTime.slice(11,16)}
-                            <br/>
-                        </Typography>
-                        <Typography variant="caption" >
-                            {props.arrivalAirport}
-                        </Typography>
-                    </div>
+                            <div style={{display:'flex',flexDirection : 'column'}}>
+                                <Typography color='textSecondary' align='center' >
+                                    {props.stops + " stops"}<br/>
+                                    {props.airLine}
+                                </Typography>
+                                <Typography variant="h5" component="h2" style={{textAlign:'center'}}>
+                                    ◦ {props.departureTime.slice(11,16)} {props.departureAirport} <span style={{color:'lightgray'}}>━━━━━━━</span> {props.arrivalTime.slice(11,16)} {props.arrivalAirport} ◦
+                                    <Typography color='textSecondary' >
+                                        {props.duration.slice(2,5).toLowerCase() + " " + props.duration.slice(5).toLowerCase()}
+                                    </Typography>
+                                </Typography>
+                            </div>
                 </AccordionDetails>
                 <Divider />
-                <AccordionDetails className={classes.details}>
-                    <div className={classes.column} >
-                        <Typography variant="caption"  className={classes.secondaryHeading}>
-                            {props.returnAirline}
-                            <br/>
-                            {props.returnDuration.slice(2,5).toLowerCase() + " " + props.duration.slice(5).toLowerCase()}
-                            <br/>
-                            {props.stops + " stops"}
-                        </Typography>
-                    </div>
-                    <div className={clsx(classes.column, classes.helper)}>
-                        <Typography variant="h4">
-                            {props.returnDepartureTime.slice(11,16)}
-                            <br />
-                        </Typography>
-                        <Typography variant ="caption">
-                            {props.returnDepartureAirport}
-                        </Typography>
-                    </div>
-                    <div className={clsx(classes.column, classes.helper)}>
-                        <Typography variant="h4">
-                            {props.returnArrivalTime.slice(11,16)}
-                            <br/>
-                        </Typography>
-                        <Typography variant="caption" >
-                            {props.returnArrivalAirport}
-                        </Typography>
-                    </div>
-                </AccordionDetails>
+                <ReturnFlight/>
             </Accordion>
         </div>
     );

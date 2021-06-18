@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop:25,
     },
     checkboxNonStops:{
-        marginTop:26,
+        marginTop:25,
     }
 }));
 

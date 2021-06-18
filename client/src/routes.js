@@ -6,6 +6,10 @@ import AppHeader from "./components/AppHeader";
 import AppSidebar from "./components/AppSidebar";
 import Hotels from "./pages/Hotels/Hotels";
 import FlightSearch from "./pages/Flight/Main";
+import FlightBook from "./pages/FlightBook/FlightBook";
+import {HotelList} from "./pages/Hotels/HotelList";
+import {HotelRooms} from "./pages/HotelRooms/HotelRooms";
+import HotelBook from "./pages/HotelBook/HotelBook";
 
 export const useRoutes = () => {
 
@@ -29,6 +33,18 @@ export const useRoutes = () => {
                             <Route path="/hotels/search" exact>
                                 <Hotels/>
                             </Route>
+                            <Route path="/flights/book/" >
+                                <FlightBook/>
+                            </Route>
+                            <Route path="/hotels/list/" exact >
+                              <HotelList/>
+                            </Route>
+                            <Route path="/hotels/rooms/" >
+                               <HotelRooms/>
+                            </Route>
+                            {/*<Route path="hotels/rooms/book/" >*/}
+                            {/*    <FlightBook/>*/}
+                            {/*</Route>*/}
                         </Switch>
                     </div>
                 </div>
