@@ -58,7 +58,10 @@ export const HotelRooms = (props) => {
                 </div>
                 :
                 <Paper elevation='6' style={{backgroundColor: 'whitesmoke',padding:'30px'}} >
+                    <Grid container alignItems="flex-start" spacing={0}>
+
                     {data.slice(0,visible).map((room, index) => (
+                        <Grid item xs={6}>
                         <HotelRoomCard
                             index = {index + 1}
                             description = {room.room.description.text}
@@ -69,12 +72,15 @@ export const HotelRooms = (props) => {
                             bedType = {room.room.typeEstimated.bedType}
                             adults = {room.guests.adults}
                         />
+                        </Grid>
                     ))}
+                    </Grid>
                     <Typography align='center' style={{padding:'15px'}} >
                         <Button variant="outlinedPrimary" size="large"  fullWidth onClick={loadMore}>
                             Show more
                         </Button>
                     </Typography>
+
                 </Paper>
             }
         </>

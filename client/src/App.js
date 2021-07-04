@@ -3,7 +3,7 @@ import './assets/base.css';
 import configureStore from './config/configureStore';
 import {Provider} from 'react-redux';
 import {BrowserRouter as Router} from 'react-router-dom'
-import Main from "./pages/Main";
+import AppWrapper from "./pages/AppWrapper/AppWrapper";
 
 
 
@@ -13,7 +13,7 @@ function App() {
     return (
             <Provider store={store}>
                 <Router>
-                    <Main/>
+                    <AppWrapper/>
                 </Router>
             </Provider>
     );

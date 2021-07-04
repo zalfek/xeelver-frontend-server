@@ -3,16 +3,11 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import Markdown from './MarkDown';
-import { Card } from 'semantic-ui-react'
-import CardContent from "@material-ui/core/CardContent";
-import {Row} from "reactstrap";
-import {useLocation} from "react-router-dom";
 import {FlightCardInfo} from "../../components/FlightCardInfo/FlightCardInfo";
 import {Paper} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import UserService from "../../services/UserService";
+import {useHistory} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     markdown: {
@@ -27,17 +22,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function logIn(){
-    UserService.doLogin()
-
-
-}
-
-
 export default function Main(props) {
     const classes = useStyles();
     const state = props.state
-    console.log(state)
+    let history = useHistory();
+    function Link(){
+        history.push({
+            pathname: '/flights/order',
+            state: state.cardObject
+        });
+
+    }
     return (
         <Grid item xs={12} md={8}>
             <Paper elevation='6' style={{backgroundColor: 'whitesmoke'}} >
@@ -66,7 +61,7 @@ export default function Main(props) {
             />
             ))}
                 <Typography align='center' style={{padding:'15px'}} >
-                <Button variant="contained" size="large" color="primary" fullWidth onClick={logIn}>
+                <Button variant="contained" size="large" color="primary" fullWidth onClick={Link}>
                     Order {state.cardObject.price.total + " "}€
                 </Button>
                 </Typography>

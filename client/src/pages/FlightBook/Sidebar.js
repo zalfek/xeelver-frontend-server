@@ -29,8 +29,11 @@ export default function Sidebar(props) {
             {/*    </Typography>*/}
             {/*    <Typography>{description}</Typography>*/}
             {/*</Paper>*/}
+
             <Typography variant="h6" gutterBottom className={clsx(classes.sidebarSection,classes.sidebarAboutBox)}>
-                Covid-19 Regulations
+                <Typography variant="h6" gutterBottom>{title}</Typography>
+                <Typography>{description}</Typography>
+
 
             {archives.map((archive) => (
                 <Link display="block" variant="body1" href={archive.url} key={archive.title}>

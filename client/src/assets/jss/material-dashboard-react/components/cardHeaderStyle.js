@@ -5,8 +5,8 @@ import {
   infoCardHeader,
   primaryCardHeader,
   roseCardHeader,
-  whiteColor,
-} from "assets/jss/material-dashboard-react.js";
+  whiteColor, blueCardHeader,
+} from "../../material-dashboard-react";
 
 const cardHeaderStyle = {
   cardHeader: {

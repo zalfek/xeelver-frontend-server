@@ -11,9 +11,11 @@ import MainFeaturedPost from './MainFeaturedPost';
 import FeaturedPost from './FeaturedPost';
 import Main from './Main';
 import Sidebar from './Sidebar';
-import {FlightCard} from "../../components/FlightCard/FlightCard";
 import {useLocation} from "react-router-dom";
-import Button from "@material-ui/core/Button";
+import carPhoto from '../../assets/img/car.jpeg'
+import planePhoto from '../../assets/img/plane.jpeg'
+import homePagePhoto from '../../assets/img/sidebar-2.jpg'
+
 
 const useStyles = makeStyles((theme) => ({
     mainGrid: {
@@ -26,7 +28,7 @@ const mainFeaturedPost = {
     // title: <FlightCard/>,
     // description:
     //     "You can book it in our App!",
-    image: 'https://source.unsplash.com/random',
+    image: homePagePhoto,
     imgText: 'main image description',
     // linkText: 'Book now!',
 };
@@ -37,16 +39,18 @@ const featuredPosts = [
         date: 'Nov 12',
         description:
             'Book car rent in our App!',
-        image: 'https://i.imgur.com/Q4oux6P.jpg?1',
+        image: carPhoto,
         imageText: 'Book now!',
+        url : '/cars/search',
     },
     {
         title: 'Need a hotel?',
         date: 'Nov 11',
         description:
             'You can book it in our App!',
-        image: 'https://i.imgur.com/Dc5agDi.jpg',
+        image: planePhoto,
         imageText: 'Image Text',
+        url : '/hotels/search',
     },
 ];
 

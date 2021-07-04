@@ -175,7 +175,8 @@ const infoCardHeader = {
 };
 const primaryCardHeader = {
   background:
-    "linear-gradient(60deg, " + primaryColor[1] + ", " + primaryColor[2] + ")",
+    // "linear-gradient(60deg, " + primaryColor[1] + ", " + primaryColor[2] + ")",
+      "#364e67",
   ...primaryBoxShadow,
 };
 const roseCardHeader = {
@@ -183,6 +184,7 @@ const roseCardHeader = {
     "linear-gradient(60deg, " + roseColor[1] + ", " + roseColor[2] + ")",
   ...roseBoxShadow,
 };
+
 
 const cardActions = {
   margin: "0 20px 10px",

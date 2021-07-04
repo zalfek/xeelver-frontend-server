@@ -1,34 +1,32 @@
 import {Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, CardLink, CardHeader, CardFooter, Button
 } from 'reactstrap';
-import {Divider, Typography} from "@material-ui/core";
+import {Divider, Grid, Typography} from "@material-ui/core";
 import RoomIcon from '@material-ui/icons/Room';
 import {Link} from 'react-router-dom'
 import {makeStyles} from "@material-ui/core/styles";
 import {useHistory} from "react-router-dom";
-import {useEffect, useState} from "react";
-
-
+import React, {useEffect, useState} from "react";
+import StarIcon from '@material-ui/icons/Star';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
+import {DatePicker} from "mui-rff";
+import DateFnsUtils from "@date-io/date-fns";
+import WifiIcon from "@material-ui/icons/Wifi";
+import LocalParkingIcon from "@material-ui/icons/LocalParking";
+import RestaurantMenuIcon from "@material-ui/icons/RestaurantMenu";
+import LocalBarIcon from "@material-ui/icons/LocalBar";
+import FitnessCenterIcon from "@material-ui/icons/FitnessCenter";
+import TvIcon from "@material-ui/icons/Tv";
+// import CardActionArea from '@material-ui/core/CardActionArea';
+import hotelPhoto from '../../assets/img/hotel.jpeg'
 const useStyles = makeStyles((theme) => ({
 
-//     image: {
-//     "&:hover, &:focus":{
-//     position:'relative',
-//     top:'-25px',
-//     left:'35px',
-//     width:'500px',
-//     height:'auto',
-//     display:'block',
-//     // z-index:'999',
-// }
-//     },
+
 
 }));
 
 
-
  const HotelCard = (props) =>{
      const classes = useStyles();
-     const [hotelCardObject, setHotelCardObject] = useState();
      let history = useHistory();
 
      function link(){
@@ -39,25 +37,38 @@ const useStyles = makeStyles((theme) => ({
      }
 
      useEffect(() => {
-         // setHotelCardObject(props.hotelCardObject)
      }, [])
 
-
-
-
      return(
-    <Card className="main-card mb-3" style={{borderRadius:'15px',width:"70%",margin:"auto" }} onClick={link}>
-        <CardImg top width="50%" className={classes.image}
-                 src= 'https://i.imgur.com/Dc5agDi.jpg'
-                 alt="Card image cap"/>
+         <>
+             {/*<CardActionArea onClick={link}>*/}
+    <Card className="main-card mb-3 ches" style={{borderRadius:'15px',width:"100%"}} onClick={link}>
+        <CardImg top width="100%"
+                 src={hotelPhoto}
+                 alt="Hotel image "/>
         <Divider/>
-        <CardBody>
-            <CardTitle>{props.name}</CardTitle>
+        <CardBody style={{maxHeight:'160px'}}>
+            <CardTitle style={{fontSize:'13px',maxHeight:'30px'}}>{props.name}</CardTitle>
             <CardSubtitle>
-                {props.rating? "Rating :" + props.rating : ""}
+                {props.rating =='1'? <div><StarIcon/><StarBorderIcon/><StarBorderIcon/><StarBorderIcon/><StarBorderIcon/></div>
+                    :props.rating =='2'? <div><StarIcon/><StarIcon/><StarBorderIcon/><StarBorderIcon/><StarBorderIcon/></div>
+                        :props.rating =='3'? <div><StarIcon/><StarIcon/><StarIcon/><StarBorderIcon/><StarBorderIcon/></div>
+                            :props.rating =='4'? <div><StarIcon/><StarIcon/><StarIcon/><StarIcon/><StarBorderIcon/></div>
+                                :props.rating =='5'? <div><StarIcon/><StarIcon/><StarIcon/><StarIcon/><StarIcon/></div>
+                                    : "Rating: N/A"}
             </CardSubtitle>
-            {/*{props.description} */}
-            {props.id}
+            <Grid container alignItems="flex-start" >
+                <Grid item xs={6}>
+                    <WifiIcon/> {props.wiFi} <br/>
+                    <LocalParkingIcon/> {props.parking} <br/>
+                    <RestaurantMenuIcon/> {props.restaurant} <br/>
+                </Grid>
+                <Grid item xs={6}>
+                    <LocalBarIcon/> {props.miniBar} <br/>
+                    <FitnessCenterIcon/>  {props.fitness} <br/>
+                    <TvIcon/> {props.television}
+                </Grid>
+            </Grid>
         </CardBody>
         <CardFooter style={{justifyContent:"space-between",borderRadius:'25px'}}>
             <div style={{display:"flex"}}>
@@ -66,9 +77,11 @@ const useStyles = makeStyles((theme) => ({
             {" "  + props.cityName}
                 </div>
             </div>
-            {props.price + " " + props.currency  }
+            {"From: " +props.price + " " + props.currency  }
         </CardFooter>
     </Card>
+             {/*</CardActionArea>*/}
+         </>
     );
 }
 export default HotelCard
