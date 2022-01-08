@@ -6,31 +6,31 @@ variables:
   DOCKER_DRIVER: overlay
 
 stages:
-  - server getData.js
-  - client getData.js
+  - server test
+  - client test
   - build client
   - build server
   - deploy
 
 server test:
-  stage: server getData.js
+  stage: server test
   image: node:14
   script:
     - echo "Starting server tests"
     - pwd
     - npm install
-    - CI=true npm getData.js
+    - CI=true npm test
     - echo "Test executed successfully!"
 
 client test:
-  stage: client getData.js
+  stage: client test
   image: node:14
   script:
     - echo "Starting client tests"
     - pwd
     - cd client
     - npm install
-    - CI=true npm getData.js
+    - CI=true npm test
     - echo "Test executed successfully!"
 
 build client:
