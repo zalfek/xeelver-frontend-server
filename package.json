@@ -15,6 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "config": "^3.3.6",
     "cross-env": "^7.0.3",
     "express": "^4.17.1"

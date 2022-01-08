@@ -1,0 +1,10 @@
+{
+  "realm": "react",
+  "auth-server-url": "http://35.242.190.130:8080/auth/",
+  "ssl-required": "external",
+  "resource": "react",
+  "public-client": true,
+  "verify-token-audience": true,
+  "use-resource-role-mappings": true,
+  "confidential-port": 0
+}
